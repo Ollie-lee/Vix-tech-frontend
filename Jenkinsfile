@@ -42,8 +42,8 @@ pipeline {
 stage('Production') {
   steps {
     withAWS(region:'ap-southeast-2',credentials:'awsS3UserReactInterviewJenkinsDeploy') {
-    s3Delete(bucket: 'react-interview-jenkins', path:'**/*')
-    s3Upload(bucket: 'react-interview-jenkins', workingDir:'build', includePathPattern:'**/*');
+    s3Delete(bucket: 'vix-tech-frontend', path:'**/*')
+    s3Upload(bucket: 'vix-tech-frontend', workingDir:'build', includePathPattern:'**/*');
             }
           }
         }
