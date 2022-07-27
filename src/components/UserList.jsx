@@ -9,27 +9,14 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
-import { deleteUser } from "../actions/user";
+import { useDeleteDialog } from "../hooks/useDeleteDialog";
 
 export const UserList = ({ user: { users, loading } }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedUserId, setSelectedUserId] = useState();
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDelete = () => {
-    dispatch(deleteUser(selectedUserId));
-    setOpen(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
+  const [open, handleClickOpen, handleDelete, handleCancel] =
+    useDeleteDialog(selectedUserId);
 
   useEffect(() => {
     dispatch(getUsers());

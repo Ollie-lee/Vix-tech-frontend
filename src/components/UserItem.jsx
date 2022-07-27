@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-// import { useDeleteDialog } from "../hooks/useDeleteDialog";
 
 export default function UserItem({
   user = {},
@@ -14,7 +13,6 @@ export default function UserItem({
 }) {
   const navigate = useNavigate();
   const { name = "ollie", gender = "male", age = 18, id } = user;
-  // const [open, handleClickOpen] = useDeleteDialog(id);
 
   const handleDeleteClick = () => {
     setSelectedUserId(id);

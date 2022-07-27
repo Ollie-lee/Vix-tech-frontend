@@ -6,16 +6,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { useDeleteDialog } from "../hooks/useDeleteDialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function DeleteDialog({ open, handleDelete, handleCancel }) {
-  // const [open, handleClickOpen, handleDelete, handleCancel] =
-  //   useDeleteDialog(userId);
-
   return (
     <Dialog
       open={open}
