@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import UserItem from "../components/UserItem";
@@ -8,10 +8,28 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import DeleteDialog from "./DeleteDialog";
+import { deleteUser } from "../actions/user";
 
 export const UserList = ({ user: { users, loading } }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [selectedUserId, setSelectedUserId] = useState();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteUser(selectedUserId));
+    setOpen(false);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(getUsers());
@@ -22,18 +40,31 @@ export const UserList = ({ user: { users, loading } }) => {
       <CircularProgress />
     </Box>
   ) : (
-    <List>
-      <Button variant="contained" onClick={() => navigate("/add")}>
-        Create A New User!
-      </Button>
+    <>
+      <DeleteDialog
+        userId={selectedUserId}
+        open={open}
+        handleCancel={handleCancel}
+        handleDelete={handleDelete}
+      />
 
-      {users.map((user, i) => (
-        <div key={i}>
-          <UserItem user={user} />
-          {i !== users.length - 1 && <Divider />}
-        </div>
-      ))}
-    </List>
+      <List>
+        <Button variant="contained" onClick={() => navigate("/add")}>
+          Create A New User!
+        </Button>
+
+        {users.map((user, i) => (
+          <div key={i}>
+            <UserItem
+              user={user}
+              setSelectedUserId={setSelectedUserId}
+              handleClickOpen={handleClickOpen}
+            />
+            {i !== users.length - 1 && <Divider />}
+          </div>
+        ))}
+      </List>
+    </>
   );
 };
 

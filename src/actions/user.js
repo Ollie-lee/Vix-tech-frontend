@@ -2,7 +2,6 @@ import api from "../API/api";
 import {
   ADD_USER,
   DELETE_USER,
-  GET_USER,
   GET_USERS,
   UPDATE_USER,
   USER_ERROR,
@@ -79,6 +78,27 @@ export const updateUser = (formData, navigate, userId) => async (dispatch) => {
     });
 
     navigate("/");
+  } catch (err) {
+    dispatch({
+      type: USER_ERROR,
+      payload: { msg: "error" },
+    });
+  }
+};
+
+// delete user
+export const deleteUser = (userId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: START_FETCHING,
+    });
+
+    await api.delete(`/users/${userId}`);
+
+    dispatch({
+      type: DELETE_USER,
+      payload: userId,
+    });
   } catch (err) {
     dispatch({
       type: USER_ERROR,
