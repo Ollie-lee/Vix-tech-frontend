@@ -30,15 +30,7 @@ pipeline {
         sh 'npm i'
             }
         }
-        stage('Test') {
-            steps{
-                echo "Unit Testing ..."
-                sh 'npm run test'
-
-                echo "E2E Testing ..."
-                sh 'npm run ci:e2e'
-            }
-        }      
+    
         stage('Build') {
             steps {
                 echo "Building ..."
